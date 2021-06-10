@@ -10,6 +10,9 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task:
+  inputs:
+    script: az acr login --name teamthreeazurecontregist
 - task: CmdLine@2
   displayName: 'Skaffold installation'
   inputs:
