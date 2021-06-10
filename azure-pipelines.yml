@@ -15,7 +15,7 @@ steps:
   displayName: Azure CLI
   inputs:
     azureSubscription: ServConnectionName
-    scriptType: ps
+    scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
       az --version
