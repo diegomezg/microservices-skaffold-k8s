@@ -11,9 +11,15 @@ pool:
 
 steps:
 
-- task: CmdLine@2
+- task: AzureCLI@2
+  displayName: Azure CLI
   inputs:
-    script: az acr login --name teamthreeazurecontregist
+    azureSubscription: ServConnectionName
+    scriptType: ps
+    scriptLocation: inlineScript
+    inlineScript: |
+      az --version
+      az account show
 - task: CmdLine@2
   displayName: 'Skaffold installation'
   inputs:
