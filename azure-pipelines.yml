@@ -26,4 +26,4 @@ steps:
 - task: CmdLine@2
   displayName: 'Download images from ACR'
   inputs:
-    script: echo $(SKAFFOLD_DEFAULT_REPO)
+    script: skaffold run --tail
