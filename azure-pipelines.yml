@@ -10,7 +10,8 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task:
+
+- task: CmdLine@2
   inputs:
     script: az acr login --name teamthreeazurecontregist
 - task: CmdLine@2
