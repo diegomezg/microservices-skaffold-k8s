@@ -9,22 +9,14 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  azureContainerRegistry: teamthreeazurecontregist.azurecr.io
-  azureSubscriptionEndpoint: ServConnectionName
-
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
-- task: DockerCompose@0
-  displayName: 'Container registry login'
+- task: CmdLine@2
   inputs:
-    containerregistrytype: Azure Container Registry
-    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    azureContainerRegistry: $(azureContainerRegistry)
+    script: |
+      curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+        chmod +x skaffold && \
+        sudo mv skaffold /usr/local/bin
+
+- task: CmdLine@2
+  inputs:
+    script: 'skaffold version'
