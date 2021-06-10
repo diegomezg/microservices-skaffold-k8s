@@ -11,6 +11,7 @@ pool:
 
 steps:
 - task: CmdLine@2
+  displayName: 'Skaffold installation'
   inputs:
     script: |
       curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
@@ -18,5 +19,11 @@ steps:
         sudo mv skaffold /usr/local/bin
 
 - task: CmdLine@2
+  displayName: 'Skaffold version'
   inputs:
     script: 'skaffold version'
+
+- task: CmdLine@2
+  displayName: 'Download images from ACR'
+  inputs:
+    script: echo $(SKAFFOLD_DEFAULT_REPO)
