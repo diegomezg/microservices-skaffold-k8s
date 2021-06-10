@@ -20,6 +20,12 @@ steps:
     inlineScript: |
       az --version
       az account show
+
+- task: CmdLine@2
+  displayName: 'ACR Login'
+  inputs:
+   script: docker login ${SKAFFOLD_DEFAULT_REPO} -u ${ACR_USER} -p ${ACR_PASSWORD}
+
 - task: CmdLine@2
   displayName: 'Skaffold installation'
   inputs:
