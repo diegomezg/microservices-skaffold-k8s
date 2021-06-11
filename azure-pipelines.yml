@@ -49,14 +49,6 @@ steps:
   inputs:
     helmVersion: '2.14.1'
     installKubectl: true
-- task: Kubernetes@1
-  inputs:
-    connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'teamthree-k8s-dev'
-    command: 'create'
-    arguments: 'namespace monitoring'
-    secretType: 'dockerRegistry'
-    containerRegistryType: 'Azure Container Registry'
 - task: CmdLine@2
   displayName: 'Skaffold installation'
   inputs:
