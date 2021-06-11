@@ -26,15 +26,15 @@ steps:
   inputs:
    script: docker login $(SKAFFOLD_DEFAULT_REPO) -u $(ACR_USER) -p $(ACR_PASSWORD)
 
-- task: ACRAKSAccess@0
-  inputs:
-    acrSubscriptionEndpoint: 'ServConnectionName'
-    aksSubscriptionEndpoint: 'ServConnectionName'
-    registerMode: 'RBAC'
-    acrResourceGroupName: 'diego-gomez'
-    containerRegistry: 'teamthreeAzureContRegist'
-    aksResourceGroupName: 'diego-gomez'
-    aksCluster: 'teamthree-k8s'
+# - task: ACRAKSAccess@0
+#   inputs:
+#     acrSubscriptionEndpoint: 'ServConnectionName'
+#     aksSubscriptionEndpoint: 'ServConnectionName'
+#     registerMode: 'RBAC'
+#     acrResourceGroupName: 'diego-gomez'
+#     containerRegistry: 'teamthreeAzureContRegist'
+#     aksResourceGroupName: 'diego-gomez'
+#     aksCluster: 'teamthree-k8s'
 
 - task: CmdLine@2
   displayName: 'Skaffold installation'
