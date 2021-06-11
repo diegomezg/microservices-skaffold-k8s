@@ -63,18 +63,18 @@ steps:
     helmVersion: '2.5.0'
     command: 'repo'
     arguments: 'add prometheus-community https://prometheus-community.github.io/helm-charts'
-- task: Helm@0
-  inputs:
-    kubernetesServiceEndpoint: 'teamthree-k8s-dev'
-    helmVersion: '2.5.0'
-    command: 'repo'
-    arguments: 'update'
-- task: Helm@0
-  inputs:
-    kubernetesServiceEndpoint: 'teamthree-k8s-dev'
-    helmVersion: '2.5.0'
-    command: 'install'
-    arguments: 'prometheus prometheus-community/kube-prometheus-stack -n monitoring'
+# - task: Helm@0
+#   inputs:
+#     kubernetesServiceEndpoint: 'teamthree-k8s-dev'
+#     helmVersion: '2.5.0'
+#     command: 'repo'
+#     arguments: 'update'
+# - task: Helm@0
+#   inputs:
+#     kubernetesServiceEndpoint: 'teamthree-k8s-dev'
+#     helmVersion: '2.5.0'
+#     command: 'install'
+#     arguments: 'prometheus prometheus-community/kube-prometheus-stack -n monitoring'
     
 - task: CmdLine@2
   displayName: 'Skaffold installation'
