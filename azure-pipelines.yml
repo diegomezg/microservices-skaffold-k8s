@@ -60,7 +60,7 @@ steps:
   inputs:
     script: 'skaffold version'
 
-# - task: CmdLine@2
-#   displayName: 'Download images from ACR'
-#   inputs:
-#     script: skaffold run --tail
+- task: CmdLine@2
+  displayName: 'Download images from ACR'
+  inputs:
+    script: skaffold run --tail
