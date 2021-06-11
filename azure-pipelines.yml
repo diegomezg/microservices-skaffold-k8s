@@ -57,10 +57,16 @@ steps:
   inputs:
     helmVersion: '2.5.0'
     installKubectl: true
-- task: helm@1
+- task: HelmDeploy@0
   inputs:
-    subCommand: 'repo'
-    arguments: 'add prometheus-community https://prometheus-community.github.io/helm-charts'
+    connectionType: 'Azure Resource Manager'
+    azureSubscription: 'ServConnectionName'
+    azureResourceGroup: 'diego-gomez'
+    kubernetesCluster: 'teamthree-k8s'
+    namespace: 'monitoring'
+    command: 'install'
+    chartType: 'Name'
+    chartName: 'prometheus'
     
 - task: CmdLine@2
   displayName: 'Skaffold installation'
