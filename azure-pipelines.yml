@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- azure-pipelines
+- test
 
 pool:
   vmImage: ubuntu-latest
@@ -83,3 +83,7 @@ steps:
 #         kubectl wait --for=condition=available --timeout=300s recommendationservice
 #         kubectl wait --for=condition=available --timeout=300s redis-cart
 #         kubectl wait --for=condition=available --timeout=300s shippingservice
+
+- task: k6-load-test@0
+  inputs:
+    filename: 'test.js'
