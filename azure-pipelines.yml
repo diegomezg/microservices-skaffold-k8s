@@ -26,15 +26,15 @@ steps:
   inputs:
    script: docker login $(SKAFFOLD_DEFAULT_REPO) -u $(ACR_USER) -p $(ACR_PASSWORD)
 
-# - task: ACRAKSAccess@0
-#   inputs:
-#     acrSubscriptionEndpoint: 'ServConnectionName'
-#     aksSubscriptionEndpoint: 'ServConnectionName'
-#     registerMode: 'RBAC'
-#     acrResourceGroupName: 'diego-gomez'
-#     containerRegistry: 'teamthreeAzureContRegist'
-#     aksResourceGroupName: 'diego-gomez'
-#     aksCluster: 'teamthree-k8s'
+- task: ACRAKSAccess@0
+  inputs:
+    acrSubscriptionEndpoint: 'ServConnectionName'
+    aksSubscriptionEndpoint: 'ServConnectionName'
+    registerMode: 'RBAC'
+    acrResourceGroupName: 'diego-gomez'
+    containerRegistry: 'teamthreeAzureContRegist'
+    aksResourceGroupName: 'diego-gomez'
+    aksCluster: 'teamthree-k8s'
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
@@ -57,6 +57,18 @@ steps:
   inputs:
     helmVersion: '2.14.1'
     installKubectl: true
+
+- task: HelmDeploy@0
+  inputs:
+    connectionType: 'Azure Resource Manager'
+    azureSubscription: 'ServConnectionName'
+    azureResourceGroup: 'diego-gomez'
+    kubernetesCluster: 'teamthree-k8s'
+    namespace: 'monitoring'
+    command: 'install'
+    chartType: 'FilePath'
+    chartPath: 'prometheus-community/kube-prometheus-stack'
+    
 - task: CmdLine@2
   displayName: 'Skaffold installation'
   inputs:
