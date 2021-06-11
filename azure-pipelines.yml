@@ -61,9 +61,9 @@ steps:
     script: 'skaffold version'
 
 - task: CmdLine@2
-  displayName: 'Download images from ACR'
+  displayName: 'Skaffold deploy'
   inputs:
-    script: skaffold run --tail
+    script: skaffold deploy --skip-render
 
 # - task: CmdLine@2
 #   displayName: 'Wait for pods'
