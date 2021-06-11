@@ -63,7 +63,7 @@ steps:
 - task: CmdLine@2
   displayName: 'Skaffold deploy'
   inputs:
-    script: skaffold deploy --skip-render
+    script: skaffold run
 
 # - task: CmdLine@2
 #   displayName: 'Wait for pods'
