@@ -45,14 +45,11 @@ steps:
     secretType: 'dockerRegistry'
     containerRegistryType: 'Azure Container Registry'
 
-- task: Kubernetes@1
+- task: CmdLine@2
+  displayName: 'Monitoring namespace conditional'
   inputs:
-    connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'teamthree-k8s-dev'
-    command: 'create'
-    arguments: 'namespace monitoring --dry-run=client -o yaml | kubectl apply -f -'
-    secretType: 'dockerRegistry'
-    containerRegistryType: 'Azure Container Registry'
+   script: |
+    kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
 
 - task: HelmInstaller@0
   inputs:
