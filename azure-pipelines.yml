@@ -45,11 +45,13 @@ steps:
     secretType: 'dockerRegistry'
     containerRegistryType: 'Azure Container Registry'
 
-- task: CmdLine@2
-  displayName: 'Monitoring namespace conditional'
-  inputs:
-   script: |
-    kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
+# - task: CmdLine@2
+#   displayName: 'Monitoring namespace conditional'
+#   inputs:
+#    script: |
+#     kubectl create namespace monitoring --dry-run=client -o yaml
+
+
 
 - task: HelmInstaller@0
   inputs:
