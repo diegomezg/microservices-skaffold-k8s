@@ -63,23 +63,23 @@ steps:
 - task: CmdLine@2
   displayName: 'Download images from ACR'
   inputs:
-    script: skaffold run --tail --status-check=true --wait-for-deletions=true
+    script: skaffold run --tail
 
-# - task: CmdLine@2
-#   displayName: 'Wait for pods'
-#   inputs:
-#     script: |
-#       set -x
-#         kubectl config set-context --current --namespace=$(NAMESPACE)
-#         kubectl wait --for=condition=available --timeout=300s adservice
-#         kubectl wait --for=condition=available --timeout=300s cartservice
-#         kubectl wait --for=condition=available --timeout=300s checkoutservice
-#         kubectl wait --for=condition=available --timeout=300s currencyservice
-#         kubectl wait --for=condition=available --timeout=300s emailservice
-#         kubectl wait --for=condition=available --timeout=300s frontend
-#         kubectl wait --for=condition=available --timeout=300s frontend-external
-#         kubectl wait --for=condition=available --timeout=300s paymentservice
-#         kubectl wait --for=condition=available --timeout=300s productcatalogservice
-#         kubectl wait --for=condition=available --timeout=300s recommendationservice
-#         kubectl wait --for=condition=available --timeout=300s redis-cart
-#         kubectl wait --for=condition=available --timeout=300s shippingservice
+- task: CmdLine@2
+  displayName: 'Wait for pods'
+  inputs:
+    script: |
+      set -x
+        kubectl config set-context --current --namespace=$(NAMESPACE)
+        kubectl wait --for=condition=available --timeout=300s adservice
+        kubectl wait --for=condition=available --timeout=300s cartservice
+        kubectl wait --for=condition=available --timeout=300s checkoutservice
+        kubectl wait --for=condition=available --timeout=300s currencyservice
+        kubectl wait --for=condition=available --timeout=300s emailservice
+        kubectl wait --for=condition=available --timeout=300s frontend
+        kubectl wait --for=condition=available --timeout=300s frontend-external
+        kubectl wait --for=condition=available --timeout=300s paymentservice
+        kubectl wait --for=condition=available --timeout=300s productcatalogservice
+        kubectl wait --for=condition=available --timeout=300s recommendationservice
+        kubectl wait --for=condition=available --timeout=300s redis-cart
+        kubectl wait --for=condition=available --timeout=300s shippingservice
