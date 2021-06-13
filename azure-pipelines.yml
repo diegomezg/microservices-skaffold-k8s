@@ -67,7 +67,7 @@ steps:
   inputs:
     connectionType: 'Kubernetes Service Connection'
     kubernetesServiceEndpoint: 'teamthree-k8s-dev'
-    command: 'apply'
+    command: 'create'
     arguments: 'ns monitoring'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Azure Container Registry'
