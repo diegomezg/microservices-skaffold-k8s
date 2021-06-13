@@ -73,7 +73,6 @@ steps:
     kubernetesCluster: 'teamthree-k8s'
     namespace: 'monitoring'
     command: 'install'
-    chartType: 'Name'
     chartName: 'prometheus-community/kube-prometheus-stack'
     arguments: 'prometheus'
 
