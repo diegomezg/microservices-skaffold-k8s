@@ -74,8 +74,8 @@ steps:
     namespace: 'monitoring'
     command: 'install'
     chartType: 'Name'
-    chartName: 'prometheus'
-    arguments: 'prometheus-community/kube-prometheus-stack'
+    chartName: 'prometheus-community/kube-prometheus-stack'
+    arguments: 'prometheus'
 
 - task: CmdLine@2
   displayName: 'Skaffold installation'
