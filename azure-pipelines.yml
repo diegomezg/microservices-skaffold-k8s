@@ -73,7 +73,8 @@ steps:
     namespace: 'monitoring'
     command: 'install'
     chartType: 'Name'
-    chartName: 'https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack'
+    chartName: 'prometheus-community/kube-prometheus-stack'
+    releaseName: 'prometheus'
 
 - task: CmdLine@2
   displayName: 'Skaffold installation'
