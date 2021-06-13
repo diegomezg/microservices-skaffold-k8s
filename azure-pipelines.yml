@@ -65,7 +65,6 @@ steps:
       helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 
 - task: HelmDeploy@0
-  displayName: 'Installing Prometheus'
   inputs:
     connectionType: 'Azure Resource Manager'
     azureSubscription: 'ServConnectionName'
@@ -75,7 +74,6 @@ steps:
     command: 'install'
     chartType: 'Name'
     chartName: 'https://prometheus-community.github.io/helm-charts'
-    updateDependency: true
 
 - task: CmdLine@2
   displayName: 'Skaffold installation'
