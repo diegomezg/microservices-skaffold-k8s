@@ -124,6 +124,6 @@ steps:
 #         kubectl wait --for=condition=available --timeout=300s redis-cart
 #         kubectl wait --for=condition=available --timeout=300s shippingservice
 
-# - task: k6-load-test@0
-#   inputs:
-#     filename: 'test.js'
+- task: k6-load-test@0
+  inputs:
+     filename: 'script.js'
