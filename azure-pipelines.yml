@@ -100,10 +100,10 @@ steps:
   inputs:
     script: 'skaffold version'
 
-# - task: CmdLine@2
-#   displayName: 'Skaffold deploy'
-#   inputs:
-#     script: skaffold run
+- task: CmdLine@2
+  displayName: 'Skaffold deploy'
+  inputs:
+    script: skaffold run
 
 # - task: CmdLine@2
 #   displayName: 'Wait for pods'
