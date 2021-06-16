@@ -20,6 +20,7 @@ steps:
     inlineScript: |
       az --version
       az account show
+      az aks get-credentials --resource-group diego-gomez --name teamthree-k8s --overwrite
 
 - task: CmdLine@2
   displayName: 'ACR Login'
