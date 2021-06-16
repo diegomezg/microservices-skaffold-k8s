@@ -27,13 +27,11 @@ steps:
    script: docker login $(SKAFFOLD_DEFAULT_REPO) -u $(ACR_USER) -p $(ACR_PASSWORD)
 
 - task: Kubernetes@1
-  displayName: 'K8S service connection'
   inputs:
     connectionType: 'Kubernetes Service Connection'
     kubernetesServiceEndpoint: 'teamthree-k8s-dev'
-    namespace: 'dev'
     command: 'get'
-    arguments: 'namespaces'
+    arguments: 'ns'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Azure Container Registry'
 
