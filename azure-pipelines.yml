@@ -26,11 +26,16 @@ steps:
   inputs:
    script: docker login $(SKAFFOLD_DEFAULT_REPO) -u $(ACR_USER) -p $(ACR_PASSWORD)
 
-- task: kubectlgeneral@3
+- task: Kubernetes@1
+  displayName: 'K8S Service Connection'
   inputs:
-    k8sService: 'teamthree-k8s-dev'
-    subCommand: 'get'
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'teamthree-k8s-dev'
+    namespace: 'dev'
+    command: 'get'
     arguments: 'namespaces'
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Azure Container Registry'
 
 - task: CmdLine@2
   displayName: 'K8s config added & Skaffold installation'
