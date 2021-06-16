@@ -1,0 +1,62 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- test
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: AzureCLI@2
+  displayName: Azure CLI
+  inputs:
+    azureSubscription: ServConnectionName
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az --version
+      az account show
+
+- task: CmdLine@2
+  displayName: 'ACR Login'
+  inputs:
+   script: docker login $(SKAFFOLD_DEFAULT_REPO) -u $(ACR_USER) -p $(ACR_PASSWORD)
+
+- task: Kubernetes@1
+  displayName: 'K8S Service Connection'
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'teamthree-k8s-dev'
+    namespace: 'dev'
+    command: 'get'
+    arguments: 'namespaces'
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Azure Container Registry'
+
+- task: CmdLine@2
+  displayName: 'K8s config added & Skaffold installation'
+  inputs:
+    script: |
+      echo "$(KUBE_CONFIG)" | base64 -d > ~/.kube/config
+      kubectl get namespaces
+      curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+        chmod +x skaffold && \
+        sudo mv skaffold /usr/local/bin
+
+- task: CmdLine@2
+  displayName: 'Skaffold version'
+  inputs:
+    script: 'skaffold version'
+
+- task: CmdLine@2
+  displayName: 'Skaffold deploy'
+  inputs:
+    script: skaffold run
+
+- task: k6-load-test@0
+  inputs:
+     filename: 'script.js'
