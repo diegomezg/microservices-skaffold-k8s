@@ -42,6 +42,7 @@ steps:
   inputs:
     script: |
       echo "$(KUBE_CONFIG)" | base64 -d > ~/.kube/config
+      cat ~/.kube/config
       kubectl get namespaces
       curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
         chmod +x skaffold && \
