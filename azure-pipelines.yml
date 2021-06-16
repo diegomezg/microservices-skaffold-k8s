@@ -26,10 +26,11 @@ steps:
   inputs:
    script: docker login $(SKAFFOLD_DEFAULT_REPO) -u $(ACR_USER) -p $(ACR_PASSWORD)
 
-- task: HelmInstaller@0
+- task: kubectlgeneral@3
   inputs:
-    helmVersion: '2.14.1'
-    installKubectl: true
+    k8sService: 'teamthree-k8s-dev'
+    subCommand: 'get'
+    arguments: 'namespaces'
 
 - task: CmdLine@2
   displayName: 'K8s config added & Skaffold installation'
