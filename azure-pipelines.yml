@@ -26,16 +26,8 @@ steps:
   inputs:
    script: docker login $(SKAFFOLD_DEFAULT_REPO) -u $(ACR_USER) -p $(ACR_PASSWORD)
 
-# - task: ACRAKSAccess@0
-#   inputs:
-#     acrSubscriptionEndpoint: 'ServConnectionName'
-#     aksSubscriptionEndpoint: 'ServConnectionName'
-#     registerMode: 'RBAC'
-#     acrResourceGroupName: 'diego-gomez'
-#     containerRegistry: 'teamthreeAzureContRegist'
-#     aksResourceGroupName: 'diego-gomez'
-#     aksCluster: 'teamthree-k8s'
 - task: Kubernetes@1
+  displayName: 'K8S Service Connection'
   inputs:
     connectionType: 'Kubernetes Service Connection'
     kubernetesServiceEndpoint: 'teamthree-k8s-dev'
@@ -45,48 +37,8 @@ steps:
     secretType: 'dockerRegistry'
     containerRegistryType: 'Azure Container Registry'
 
-# - task: CmdLine@2
-#   displayName: 'Monitoring namespace conditional'
-#   inputs:
-#    script: |
-#     kubectl create namespace monitoring --dry-run=client -o yaml
-
-# - task: HelmInstaller@0
-#   inputs:
-#     helmVersion: '2.5.0'
-#     installKubectl: true
-
-# - task: CmdLine@2
-#   displayName: 'Adding Prometheus repo with Helm'
-#   inputs:
-#     script: |
-#       helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-
-# - task: Kubernetes@1
-#   displayName: 'Creating monitoring namespace'
-#   inputs:
-#     connectionType: 'Kubernetes Service Connection'
-#     kubernetesServiceEndpoint: 'teamthree-k8s-dev'
-#     command: 'create'
-#     arguments: 'ns monitoring'
-#     secretType: 'dockerRegistry'
-#     containerRegistryType: 'Azure Container Registry'
-
-# - task: HelmDeploy@0
-#   displayName: 'Installing Prometheus'
-#   inputs:
-#     connectionType: 'Azure Resource Manager'
-#     azureSubscription: 'ServConnectionName'
-#     azureResourceGroup: 'diego-gomez'
-#     kubernetesCluster: 'teamthree-k8s'
-#     namespace: 'monitoring'
-#     command: 'install'
-#     chartType: 'Name'
-#     chartName: 'prometheus-community/kube-prometheus-stack'
-#     releaseName: 'prometheus'
-
 - task: CmdLine@2
-  displayName: 'Skaffold installation'
+  displayName: 'K8s config added & Skaffold installation'
   inputs:
     script: |
       echo "$(KUBE_CONFIG)" | base64 -d > ~/.kube/config
@@ -104,25 +56,6 @@ steps:
   displayName: 'Skaffold deploy'
   inputs:
     script: skaffold run
-
-# - task: CmdLine@2
-#   displayName: 'Wait for pods'
-#   inputs:
-#     script: |
-#       set -x
-#         kubectl config set-context --current --namespace=$(NAMESPACE)
-#         kubectl wait --for=condition=available --timeout=300s adservice
-#         kubectl wait --for=condition=available --timeout=300s cartservice
-#         kubectl wait --for=condition=available --timeout=300s checkoutservice
-#         kubectl wait --for=condition=available --timeout=300s currencyservice
-#         kubectl wait --for=condition=available --timeout=300s emailservice
-#         kubectl wait --for=condition=available --timeout=300s frontend
-#         kubectl wait --for=condition=available --timeout=300s frontend-external
-#         kubectl wait --for=condition=available --timeout=300s paymentservice
-#         kubectl wait --for=condition=available --timeout=300s productcatalogservice
-#         kubectl wait --for=condition=available --timeout=300s recommendationservice
-#         kubectl wait --for=condition=available --timeout=300s redis-cart
-#         kubectl wait --for=condition=available --timeout=300s shippingservice
 
 - task: k6-load-test@0
   inputs:
