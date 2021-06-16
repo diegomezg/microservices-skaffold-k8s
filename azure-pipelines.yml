@@ -26,21 +26,20 @@ steps:
   inputs:
    script: docker login $(SKAFFOLD_DEFAULT_REPO) -u $(ACR_USER) -p $(ACR_PASSWORD)
 
-# - task: Kubernetes@1
-#   inputs:
-#     connectionType: 'Kubernetes Service Connection'
-#     kubernetesServiceEndpoint: 'teamthree-k8s-dev'
-#     command: 'get'
-#     arguments: 'ns'
-#     secretType: 'dockerRegistry'
-#     containerRegistryType: 'Azure Container Registry'
+- task: Kubernetes@1
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'teamthree-k8s-dev'
+    command: 'get'
+    arguments: 'namespaces'
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Azure Container Registry'
 
 - task: CmdLine@2
   displayName: 'K8s config added & Skaffold installation'
   inputs:
     script: |
       echo "$(KUBE_CONFIG)" | base64 -d > ~/.kube/config
-      cat ~/.kube/config
       kubectl get namespaces
       curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
         chmod +x skaffold && \
